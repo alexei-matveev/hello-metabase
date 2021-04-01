@@ -73,7 +73,7 @@ spec:
 #
 #     http://metabase.localhost
 #
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: metabase
@@ -82,9 +82,13 @@ spec:
   - host: metabase.localhost
     http:
       paths:
-      - backend:
-          serviceName: metabase-server
-          servicePort: 3000
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: metabase-server
+            port:
+              number: 3000
 ---
 # https://github.com/rancher/local-path-provisioner
 apiVersion: v1
