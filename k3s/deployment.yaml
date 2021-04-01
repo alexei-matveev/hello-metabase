@@ -10,6 +10,9 @@ spec:
   selector:
     matchLabels:
       component: metabase-server
+  # Dont let two Pods fiddle with the DB at the same time:
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
